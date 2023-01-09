@@ -84,10 +84,7 @@ const SearchResults = () => {
             <Tab.Pane eventKey="comments">
               
                 {searchResults.comments.length? (
-                  <div className="d-flex flex-wrap gap-2">{searchResults.comments.map(item=>{
-                    const comm=item.comment.replace(new RegExp(searchWord,"gi"),(match)=>`<mark>${match}</mark>`).split(",")
-                    console.log(comm);
-                console.log(comm);  
+                  <div className="d-flex flex-wrap gap-2">{searchResults.comments.map(item=>{  
                     return <div className="commentSearch">
                       <Review review={item.review}/>
                       <p>{reactStringReplace(item.comment,new RegExp(searchWord,"gi"),(match)=>(<mark>{match}</mark>))}</p>

@@ -15,7 +15,6 @@ const ForgetModal = ({show,onHide}) => {
     return axiosFetch.post('/auth/forget',email);
   },{
     onSuccess:(({data})=>{
-      console.log(data);
       toast.success(data.msg,toastOptions);
       onHide();
     }),

@@ -76,7 +76,6 @@ const Comment = ({comment:{comment,users,reacts}}) => {
           socket.emit("react_notify",{recipient:data.userId,notification:data.notification});
         }
       }
-      console.log(data);
       dispatch(reactComment({updated:data.updated,id:comment.commentId,data:data.user,oldEmoji:data.oldEmoji}))
     }
   })

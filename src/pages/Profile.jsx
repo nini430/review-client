@@ -73,7 +73,6 @@ const Profile = () => {
     return axiosFetch.put(`/user/${userId}`,{...updates,profileImg:img},{withCredentials:true})
   },{
     onSuccess:(({data})=>{
-      console.log(data);
       client.invalidateQueries(["profile"])
       setInEditMode(false);
       

@@ -37,9 +37,6 @@ const TwoFactorAuth = () => {
       onSuccess:()=>{
           setShowCodeInput(true);
           localStorage.setItem("webportal_app_phone",JSON.stringify(phone));
-      },
-      onError:err=>{
-        console.log(err);
       }
     })
     const confirmMutation=useMutation((code)=>{

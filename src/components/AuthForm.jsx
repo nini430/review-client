@@ -60,7 +60,6 @@ const AuthForm = ({ isRegister, admin }) => {
     },
     {
       onSuccess: ({ data }) => {
-        console.log(data);
 
         if (data.admin) {
           setModalOpen(data.admin);
@@ -78,8 +77,6 @@ const AuthForm = ({ isRegister, admin }) => {
       },
       onError: (err) => {
         setIsLoading(false);
-        console.log(values);
-        console.log(errors);
         if (err.response.data) {
           setErrors(err.response.data);
         }

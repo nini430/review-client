@@ -72,14 +72,11 @@ const CreateReview = ({update}) => {
     }
   },[currentUser.role])
 
-  console.log(tags);
+
 
   useEffect(()=>{
-    console.log(sliderRef.current)
     if(sliderRef.current) {
         const left=sliderRef.current.offsetWidth;
-        console.log(left);
-        console.log(sliderRef.current.scrollLeft);
         sliderRef.current.scrollLeft+=left;
     }
   },[images])
@@ -155,7 +152,6 @@ const CreateReview = ({update}) => {
       formData.append("file",file);
       formData.append("upload_preset",keys.UPLOAD_PRESET);
       const response=await axios.post(`https://api.cloudinary.com/v1_1/${keys.MY_CLOUD_NAME}/image/upload`,formData);
-      console.log(response);
       images.push(response.data.secure_url);
     
     }
@@ -163,12 +159,12 @@ const CreateReview = ({update}) => {
      
       
      
-     console.log(images);
+  
    
     return images;
  }
 
- console.log(selected);
+
 
  const reviewMutation=useMutation(async(review)=>{
   
@@ -185,7 +181,6 @@ const CreateReview = ({update}) => {
     setTimeout(()=>{
       navigate("/");
     },2000);
-    console.log(data?.data?.msg);
     toast.success(t(data?.data?.msg),toastOptions);
     
   },
@@ -196,7 +191,7 @@ const CreateReview = ({update}) => {
   }
  })
 
- console.log(errors);
+
 const updateMutation=useMutation(async(review)=>{
   let imgs=[];
     if(images.filter(item=>!item.uploaded).length) {
@@ -207,7 +202,7 @@ const updateMutation=useMutation(async(review)=>{
     
 },{
   onSuccess:({data})=>{
-    console.log(data);
+
     toast.success(data.msg,toastOptions)
     setTimeout(()=>{
       navigate("/")

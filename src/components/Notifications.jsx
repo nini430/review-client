@@ -36,7 +36,6 @@ const Notifications = ({setShowNots}) => {
         return axiosFetch.get("/user/notifications",{withCredentials:true})
     },{
         onSuccess:({data})=>{
-            console.log(data);
             dispatch(getNotifications(data));
         }
     })

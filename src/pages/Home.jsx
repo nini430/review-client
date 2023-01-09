@@ -16,13 +16,12 @@ const Home = () => {
   const {currentUser}=useSelector(state=>state.auth);
 
   useEffect(()=>{
-    console.log("kaira")
+
     const fetchUser=async()=>{
       const response=await axios.get("https://webportal1.herokuapp.com/auth/login/success",{withCredentials:true});
       return response.data;
     }
     fetchUser().then(data=>{
-      console.log(data);
       dispatch(getUser(data.user[0]))
     })
   },[dispatch])

@@ -87,7 +87,6 @@ const ReviewDetails = () => {
     },
     {
       onSuccess: ({ data }) => {
-        console.log(data);
         dispatch(getReview(data));
       },
       cacheTime: 0,
@@ -97,7 +96,6 @@ const ReviewDetails = () => {
   useEffect(() => {
     if (socket) {
       socket.on("receive_message", (data) => {
-        console.log("iuhu");
         dispatch(getComments({ comments: [data], append: true }));
       });
 
@@ -117,12 +115,10 @@ const ReviewDetails = () => {
     }
 
     socket?.on("receive_like", () => {
-      console.log("anuuuuuuuuuu");
       refetch();
     });
 
     socket?.on("receive_rate", () => {
-      console.log("rateraterate");
       refetch();
     });
 
@@ -169,32 +165,22 @@ const ReviewDetails = () => {
     },
     {
       onSuccess: ({ data }) => {
-        console.log("anu raxdeba aq");
-        console.log(data);
         socket?.emit("rate_review", { sender: currentUser.uuid });
-        console.log(data.notification);
-        console.log(data.modified);
         if (data.notification) {
           if (data.modified) {
-            console.log("replace");
             socket.emit("react_replace", {
               recipient: data.user,
               notification: data.notification,
             });
           } else {
-            console.log("react-notify");
             socket.emit("react_notify", {
               recipient: data.user,
               notification: data.notification,
             });
           }
         }
-        console.log(data);
         client.invalidateQueries(["review"]);
-      },
-      onError: (err) => {
-        console.log("raaa");
-      },
+      }
     }
   );
 
@@ -208,7 +194,6 @@ const ReviewDetails = () => {
     },
     {
       onSuccess: ({ data }) => {
-        console.log("aq");
         socket?.emit("like_review", { sender: currentUser.uuid });
         if (!data.delete) {
           socket?.emit("react_notify", {
@@ -222,7 +207,6 @@ const ReviewDetails = () => {
           });
         }
 
-        console.log(data);
         client.invalidateQueries(["review"]);
       },
     }
@@ -257,7 +241,6 @@ const ReviewDetails = () => {
     },
     {
       onSuccess: ({ data }) => {
-        console.log(data);
         toast.success(data.msg, toastOptions);
         setTimeout(() => {
           navigate("/");
@@ -281,17 +264,14 @@ const ReviewDetails = () => {
   };
 
   const keyUpHandler = () => {
-    console.log("vaime");
     if (typing === false) {
       setTyping(true);
       socket.emit("typing", {
         sender: currentUser.uuid,
         review: currentReview?.review.uuid,
       });
-      console.log(currentReview);
       setTimeout(timeoutFunction, 5000);
     } else {
-      console.log(currentReview);
       clearTimeout(timeoutFunction);
       setTimeout(timeoutFunction, 5000);
     }
@@ -323,7 +303,6 @@ const ReviewDetails = () => {
       ratedUsers?.find((user) => user.user.id === currentUser?.id)?.rating
         .rating || 0;
     const liked = likedUsers.find(({ user }) => user.id === currentUser?.id);
-    console.log(likedUsers);
     return (
       <div className="reviewDetails">
         <div className="left">

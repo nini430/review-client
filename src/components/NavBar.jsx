@@ -36,7 +36,6 @@ const NavBar = () => {
   const {notifications}=useSelector(state=>state.notification)
   const {adminPin,requests}=useSelector(state=>state.request)
   const [search,setSearch]=useState("");
-  console.log(currentUser);
   const navigate=useNavigate(); 
   const {isLight}=useSelector(state=>state.theme)
   const [showDropDown,setShowDropDown]=useState(false);
@@ -50,11 +49,7 @@ const NavBar = () => {
 
   useEffect(()=>{
     const handleClickOutside=(e)=>{
-      console.log(e.target);
-      console.log(themeRef.current);
-      console.log(themeRef.current.contains(e.target))
       if(themeRef.current&&(!themeRef.current.contains(e.target)&&!e.target.contains(document.getElementById("ham")))) {
-        console.log("false");
           setShowDropDown(false);
       }
     }
@@ -64,21 +59,17 @@ const NavBar = () => {
 
   useEffect(()=>{
     socket?.on("receive_notify",(data)=>{
-      console.log("receive_notify",data)
       dispatch(addNotification(data));
     })
     socket?.on("receive_unreact",(data)=>{
-      console.log(data);
       dispatch(removeNotifications(data))
     })
 
     socket?.on("receive_replace",(data)=>{
-      console.log("replace")
         dispatch(replaceNotification(data))
     })
     if(currentUser&&currentUser?.role==="user") {
       socket?.on("receive_respond",(data)=>{
-        console.log(data);
         dispatch(addRequest({request:data.request,adminPin:data.adminPin}))
     })
     }
