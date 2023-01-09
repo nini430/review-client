@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import {Page,Document,Text,Image,StyleSheet} from "@react-pdf/renderer"
+import {Page,Document,Text,Image,StyleSheet} from "@react-pdf/render"
 import { keys } from '../env';
 import {getText} from ".././utils/getText"
 import {useTranslation} from "react-i18next"
