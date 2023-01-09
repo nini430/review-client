@@ -132,7 +132,8 @@
     "bio":"Био",
     "no_bio":"Биографии нет",
     "member_since":"член с",
-    "reviews_own":"оценки"
+    "reviews_own":"оценки",
+    "reviews_empty":"отзывы пустые"
     
 
 

@@ -264,15 +264,7 @@ const AuthForm = ({ isRegister, admin }) => {
       ) : (
         ""
       )}
-      {!isRegister && !admin && (
-        <Button
-          onClick={() => setForgetModal(true)}
-          className="forget"
-          variant="link"
-        >
-          {t("forgot_password")}
-        </Button>
-      )}
+    
       <div className="quest">
         {isRegister ? t("already_member") : t("not_member")}{" "}
         <Link onClick={cleanup} to={isRegister ? "/login" : "/register"}>
