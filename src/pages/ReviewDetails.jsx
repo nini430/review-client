@@ -28,7 +28,7 @@ import { useTranslation } from "react-i18next";
 import { ToastContainer, toast } from "react-toastify";
 import EmojiPicker from "emoji-picker-react";
 import { BeatLoader, ClipLoader, DotLoader } from "react-spinners";
-import { PDFDownloadLink } from "@react-pdf/renderer";
+
 
 import { Comment, ReactModal, PDFReview } from "../components";
 import { axiosFetch } from "../axios";
@@ -564,22 +564,7 @@ const ReviewDetails = () => {
                 {commentsCount} <AiOutlineComment size={40} />
               </span>
             </div>
-            <PDFDownloadLink
-              className="link"
-              fileName={currentReview.review.uuid}
-              document={<PDFReview review={currentReview.review} />}
-            >
-              {({ loading }) =>
-                loading ? (
-                  "Loading Document..."
-                ) : (
-                  <div className="d-flex align-items-center gap-1">
-                    <AiFillFilePdf size={30} />
-                    {t("download")}
-                  </div>
-                )
-              }
-            </PDFDownloadLink>
+            
             {currentUser && (
               <Rating
                 allowFraction

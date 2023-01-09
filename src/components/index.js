@@ -24,7 +24,7 @@ export {default as TagCloudComponent} from "./TagCloud"
 export {default as Notifications} from "./Notifications"
 export {default as RecoverRequest} from "./RecoverRequest"
 export {default as Admissions} from "./Admissions"
-export {default as PDFReview} from "./PDFReview";
+
 
 
 
