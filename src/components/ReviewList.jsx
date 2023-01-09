@@ -1,8 +1,10 @@
 import React from "react";
 import { Review } from "./";
 import Slider from "react-slick";
+import { useTranslation } from "react-i18next";
 
 const ReviewList = ({ reviews }) => {
+  const {t}=useTranslation();
   return (
     <Slider
       responsive={[
@@ -37,9 +39,9 @@ const ReviewList = ({ reviews }) => {
       className="cards"
       slidesToShow={4}
     >
-      {reviews?.data.map((review) => (
+      {reviews?.data.length? reviews.data.map((review) => (
         <Review review={review} />
-      ))}
+      )):<h1>{t("reviews_empty")}</h1>}
     </Slider>
   );
 };

@@ -8,7 +8,7 @@ import { toastOptions } from ".././utils/toastOptions";
 import { useTranslation } from "react-i18next";
 
 const RecoverRequest = ({ show, onHide, email }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const { mutate } = useMutation(
     () => {
       return axiosFetch.post(
