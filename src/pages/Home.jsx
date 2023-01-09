@@ -1,7 +1,6 @@
 import React from 'react'
 import { useEffect } from 'react';
 import {useSelector,useDispatch} from "react-redux"
-import {useNavigate} from "react-router-dom"
 import { Bio, ReviewList,TagCloudComponent } from '../components';
 import {useQuery} from "@tanstack/react-query"
 import { axiosFetch } from '../axios';
@@ -12,7 +11,6 @@ import { getUser } from '../redux/slices/auth';
 const Home = () => {
   const dispatch=useDispatch();
   const {t}=useTranslation();
-  const navigate=useNavigate();
   const {currentUser}=useSelector(state=>state.auth);
 
   useEffect(()=>{

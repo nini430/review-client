@@ -54,11 +54,36 @@ const review = createSlice({
             : item
         );
       } else {
-        state.comments=state.comments.map(item=>item.comment.commentId===id?{...item,comment:{...item.comment,totalEmojiCount:item.comment.totalEmojiCount+1,[data.reaction.emoji+"Count"]:item.comment[data.reaction.emoji+"Count"]+1},users:[...item.users,data]}:item);
+        state.comments = state.comments.map((item) =>
+          item.comment.commentId === id
+            ? {
+                ...item,
+                comment: {
+                  ...item.comment,
+                  totalEmojiCount: item.comment.totalEmojiCount + 1,
+                  [data.reaction.emoji + "Count"]:
+                    item.comment[data.reaction.emoji + "Count"] + 1,
+                },
+                users: [...item.users, data],
+              }
+            : item
+        );
       }
     },
-    unreactComment:(state,{payload:{id,userId,oldEmoji}})=>{
-        state.comments=state.comments.map(item=>item.comment.commentId===id?{...item,comment:{...item.comment,totalEmojiCount:item.comment.totalEmojiCount-1,[oldEmoji+"Count"]:item.comment[oldEmoji+"Count"]-1},users:item.users.filter(({user})=>user.id!==userId)}:item)
+    unreactComment: (state, { payload: { id, userId, oldEmoji } }) => {
+      state.comments = state.comments.map((item) =>
+        item.comment.commentId === id
+          ? {
+              ...item,
+              comment: {
+                ...item.comment,
+                totalEmojiCount: item.comment.totalEmojiCount - 1,
+                [oldEmoji + "Count"]: item.comment[oldEmoji + "Count"] - 1,
+              },
+              users: item.users.filter(({ user }) => user.id !== userId),
+            }
+          : item
+      );
     },
     clearComments: (state) => {
       state.comments = [];
@@ -77,7 +102,7 @@ export const {
   editComment,
   clearComments,
   reactComment,
-  unreactComment
+  unreactComment,
 } = review.actions;
 
 export default review.reducer;

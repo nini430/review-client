@@ -12,8 +12,7 @@ import {
   Tooltip,
 } from "react-bootstrap";
 import Slider from "react-slick";
-import { FaComments, FaSmileBeam } from "react-icons/fa";
-import { AiFillFilePdf } from "react-icons/ai";
+import { FaSmileBeam } from "react-icons/fa";
 import { FcRating } from "react-icons/fc";
 import {
   AiOutlineComment,
@@ -27,10 +26,9 @@ import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ToastContainer, toast } from "react-toastify";
 import EmojiPicker from "emoji-picker-react";
-import { BeatLoader, ClipLoader, DotLoader } from "react-spinners";
+import { BeatLoader, ClipLoader } from "react-spinners";
 
-
-import { Comment, ReactModal, PDFReview } from "../components";
+import { Comment, ReactModal } from "../components";
 import { axiosFetch } from "../axios";
 import {
   getReview,
@@ -180,7 +178,7 @@ const ReviewDetails = () => {
           }
         }
         client.invalidateQueries(["review"]);
-      }
+      },
     }
   );
 
@@ -543,7 +541,7 @@ const ReviewDetails = () => {
                 {commentsCount} <AiOutlineComment size={40} />
               </span>
             </div>
-            
+
             {currentUser && (
               <Rating
                 allowFraction
@@ -551,7 +549,7 @@ const ReviewDetails = () => {
                 onClick={(rating) => rateReview.mutate(rating)}
               />
             )}
-            {currentUser&&currentUser?.id === currentReview.review.userId && (
+            {currentUser && currentUser?.id === currentReview.review.userId && (
               <div className="d-flex">
                 <Link className="link" to={`/update/${id}`}>
                   <AiOutlineEdit role="button" size={40} />

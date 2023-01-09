@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { Button, Form ,Spinner} from "react-bootstrap";
+import { Button, Form, Spinner } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
-import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { ToastContainer, toast } from "react-toastify";
 import { toastOptions } from "../utils/toastOptions";
-import {useSelector,useDispatch} from "react-redux"
+import { useSelector, useDispatch } from "react-redux";
 
 import GoogleIcon from "../assets/google.png";
 import TwitterIcon from "../assets/twitter.png";
 import { axiosFetch } from "../axios";
-import { AdminModal, ForgetModal, RecoverRequest } from "./";  
-import {authStart, cleanupErrors} from "../redux/slices/auth"
+import { AdminModal, ForgetModal, RecoverRequest } from "./";
+import { authStart, cleanupErrors } from "../redux/slices/auth";
 import { useEffect } from "react";
 
 export const initialState = {
@@ -26,41 +26,49 @@ export const initialState = {
 };
 
 const AuthForm = ({ isRegister, admin }) => {
-  const {currentUser,isLoading:storeLoading,errors:storeErrors}=useSelector(state=>state.auth);
-  const dispatch=useDispatch();
+  const {
+    currentUser,
+    isLoading: storeLoading,
+    errors: storeErrors,
+  } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isLoading,setIsLoading]=useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [values, setValues] = useState(initialState);
   const [modalOpen, setModalOpen] = useState(false);
   const [errors, setErrors] = useState({});
   const { t } = useTranslation();
-  const [forgetModal,setForgetModal]=useState(false)
+  const [forgetModal, setForgetModal] = useState(false);
 
-  useEffect(()=>{
-    if(currentUser) {
-      if(currentUser.role==="user") navigate("/");
-      if(currentUser.role==="admin") navigate("/admin")
+  useEffect(() => {
+    if (currentUser) {
+      if (currentUser.role === "user") navigate("/");
+      if (currentUser.role === "admin") navigate("/admin");
     }
-  },[currentUser,navigate])
+  }, [currentUser, navigate]);
 
   const handleChange = (e) => {
     setValues((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const loginHandler=()=>{
-      dispatch(authStart({email:values.email,password:values.password,adminPin:values.adminPin,admin:admin?true:false}));
-      
-  }
+  const loginHandler = () => {
+    dispatch(
+      authStart({
+        email: values.email,
+        password: values.password,
+        adminPin: values.adminPin,
+        admin: admin ? true : false,
+      })
+    );
+  };
 
   const registerMutation = useMutation(
-    
     (user) => {
       setIsLoading(true);
       return axiosFetch.post("/auth/register", user);
     },
     {
       onSuccess: ({ data }) => {
-
         if (data.admin) {
           setModalOpen(data.admin);
           setIsLoading(false);
@@ -73,7 +81,6 @@ const AuthForm = ({ isRegister, admin }) => {
             navigate("/login");
           }, 2000);
         }
-        
       },
       onError: (err) => {
         setIsLoading(false);
@@ -84,21 +91,19 @@ const AuthForm = ({ isRegister, admin }) => {
     }
   );
 
-
-
   const cleanup = () => {
-    dispatch(cleanupErrors())
+    dispatch(cleanupErrors());
     setValues(initialState);
     setErrors({});
   };
-  const google=()=>{
-    window.open("http://localhost:8000/auth/google","_self");
-  }
-  const twitter=()=>{
-    window.open("http://localhost:8000/auth/twitter","_self")
-  }
+  const google = () => {
+    window.open("http://localhost:8000/auth/google", "_self");
+  };
+  const twitter = () => {
+    window.open("http://localhost:8000/auth/twitter", "_self");
+  };
   return (
-    <Form  onSubmit={(e) => e.preventDefault()}>
+    <Form onSubmit={(e) => e.preventDefault()}>
       <h2 className="text-center">
         {isRegister ? t("register_title") : t("login_title")}
       </h2>
@@ -161,19 +166,23 @@ const AuthForm = ({ isRegister, admin }) => {
             value={values.adminPin}
             onChange={handleChange}
           />
-          {storeErrors.adminPin && <p className="error">{t(storeErrors.adminPin)}</p>}
+          {storeErrors.adminPin && (
+            <p className="error">{t(storeErrors.adminPin)}</p>
+          )}
         </Form.Group>
       )}
       <Form.Group className="mb-2">
         <Form.Label>{t("email")}</Form.Label>
         <Form.Control
           value={values.email}
-          isInvalid={errors.email||storeErrors.email}
+          isInvalid={errors.email || storeErrors.email}
           name="email"
           onChange={handleChange}
           type="email"
         />
-        {(errors.email||storeErrors.email) && <p className="error">{t(errors.email||storeErrors.email)}</p>}
+        {(errors.email || storeErrors.email) && (
+          <p className="error">{t(errors.email || storeErrors.email)}</p>
+        )}
       </Form.Group>
       <Form.Group className="mb-2">
         <Form.Label>{t("password")}</Form.Label>
@@ -182,9 +191,11 @@ const AuthForm = ({ isRegister, admin }) => {
           name="password"
           onChange={handleChange}
           type="password"
-          isInvalid={errors.password||storeErrors.password}
+          isInvalid={errors.password || storeErrors.password}
         />
-        {(errors.password||storeErrors.password) && <p className="error">{t(errors.password||storeErrors.password)}</p>}
+        {(errors.password || storeErrors.password) && (
+          <p className="error">{t(errors.password || storeErrors.password)}</p>
+        )}
       </Form.Group>
       {isRegister && (
         <>
@@ -225,20 +236,43 @@ const AuthForm = ({ isRegister, admin }) => {
         </>
       )}
       <Button
-      disabled={isLoading||storeLoading}
+        disabled={isLoading || storeLoading}
         onClick={
-          isRegister
-            ? () => registerMutation.mutate(values)
-            : loginHandler
-               
+          isRegister ? () => registerMutation.mutate(values) : loginHandler
         }
         type="submit"
         className="w-100"
       >
-        {(isLoading||storeLoading) ? <Spinner/> : (isRegister ? t("register_title") : t("login_title")) }
+        {isLoading || storeLoading ? (
+          <Spinner />
+        ) : isRegister ? (
+          t("register_title")
+        ) : (
+          t("login_title")
+        )}
       </Button>
-      {storeErrors? (storeErrors.delete?<RecoverRequest email={values.email} show={storeErrors.delete} onHide={()=>dispatch(cleanupErrors())}/>:<p className="error">{storeErrors.msg}</p>):""}
-      {(!isRegister && !admin && <Button onClick={()=>setForgetModal(true)}  className="forget" variant="link">{t("forgot_password")}</Button>) }
+      {storeErrors ? (
+        storeErrors.delete ? (
+          <RecoverRequest
+            email={values.email}
+            show={storeErrors.delete}
+            onHide={() => dispatch(cleanupErrors())}
+          />
+        ) : (
+          <p className="error">{storeErrors.msg}</p>
+        )
+      ) : (
+        ""
+      )}
+      {!isRegister && !admin && (
+        <Button
+          onClick={() => setForgetModal(true)}
+          className="forget"
+          variant="link"
+        >
+          {t("forgot_password")}
+        </Button>
+      )}
       <div className="quest">
         {isRegister ? t("already_member") : t("not_member")}{" "}
         <Link onClick={cleanup} to={isRegister ? "/login" : "/register"}>
@@ -251,10 +285,16 @@ const AuthForm = ({ isRegister, admin }) => {
             !isRegister ? "d-flex justify-content-center gap-3 w-100" : ""
           }`}
         >
-          <Button onClick={google} className={`socialBtn ${isRegister ? "w-100" : ""}   google`}>
+          <Button
+            onClick={google}
+            className={`socialBtn ${isRegister ? "w-100" : ""}   google`}
+          >
             {isRegister && t("google_text")} <img src={GoogleIcon} alt="" />
           </Button>
-          <Button onClick={twitter} className={`socialBtn ${isRegister ? "w-100" : ""} `}>
+          <Button
+            onClick={twitter}
+            className={`socialBtn ${isRegister ? "w-100" : ""} `}
+          >
             {isRegister && t("twitter_text")} <img src={TwitterIcon} alt="" />
           </Button>
         </div>
@@ -268,9 +308,10 @@ const AuthForm = ({ isRegister, admin }) => {
           setErrors={setErrors}
         />
       )}
-     
-      {forgetModal && <ForgetModal show={forgetModal} onHide={()=>setForgetModal(false)}/>}
-      
+
+      {forgetModal && (
+        <ForgetModal show={forgetModal} onHide={() => setForgetModal(false)} />
+      )}
     </Form>
   );
 };
