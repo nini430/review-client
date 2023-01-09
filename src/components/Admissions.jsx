@@ -23,11 +23,6 @@ const Admissions = ({setShowRequests}) => {
 
   useEffect(()=>{
     const handleClickOutside=e=>{
-      console.log("aqshedissssssssssssss")
-      console.log(e.target);
-      console.log(document.getElementById("request"))
-      console.log(requestRef.current);
-      console.log(e.target);
       if(requestRef.current&&!requestRef.current.contains(e.target)&&e.target!==document.getElementById("request")) {
           setShowRequests(false);
           console.log("falsi")

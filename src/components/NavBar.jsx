@@ -110,7 +110,7 @@ const NavBar = () => {
   })
 
   const logoutHandler=async()=>{
-    const response=await axios.get(`http://localhost:8000/${currentUser.withSocials?'auth/logout':'api/v1/auth/logout'}`,{withCredentials:true})
+    const response=await axios.get(`https://webportal1.herokuapp.com/${currentUser.withSocials?'auth/logout':'api/v1/auth/logout'}`,{withCredentials:true})
     toast.success(response.data.msg,toastOptions);
     dispatch(clearNotification())
     dispatch(clearRequest())

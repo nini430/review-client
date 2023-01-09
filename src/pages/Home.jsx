@@ -18,7 +18,7 @@ const Home = () => {
   useEffect(()=>{
     console.log("kaira")
     const fetchUser=async()=>{
-      const response=await axios.get("http://localhost:8000/auth/login/success",{withCredentials:true});
+      const response=await axios.get("https://webportal1.herokuapp.com/auth/login/success",{withCredentials:true});
       return response.data;
     }
     fetchUser().then(data=>{

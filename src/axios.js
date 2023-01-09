@@ -1,3 +1,3 @@
 import axios from "axios"
 
-export const axiosFetch=axios.create({baseURL:"http://localhost:8000/api/v1"});
+export const axiosFetch=axios.create({baseURL:"https://webportal1.herokuapp.com/api/v1"});
