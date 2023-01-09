@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import GoogleIcon from "../assets/google.png";
 import TwitterIcon from "../assets/twitter.png";
 import { axiosFetch } from "../axios";
-import { AdminModal, ForgetModal, RecoverRequest } from "./";
+import { AdminModal, RecoverRequest } from "./";
 import { authStart, cleanupErrors } from "../redux/slices/auth";
 import { useEffect } from "react";
 
@@ -38,7 +38,6 @@ const AuthForm = ({ isRegister, admin }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [errors, setErrors] = useState({});
   const { t } = useTranslation();
-  const [forgetModal, setForgetModal] = useState(false);
 
   useEffect(() => {
     if (currentUser) {
@@ -264,7 +263,7 @@ const AuthForm = ({ isRegister, admin }) => {
       ) : (
         ""
       )}
-    
+
       <div className="quest">
         {isRegister ? t("already_member") : t("not_member")}{" "}
         <Link onClick={cleanup} to={isRegister ? "/login" : "/register"}>
@@ -299,10 +298,6 @@ const AuthForm = ({ isRegister, admin }) => {
           setValues={setValues}
           setErrors={setErrors}
         />
-      )}
-
-      {forgetModal && (
-        <ForgetModal show={forgetModal} onHide={() => setForgetModal(false)} />
       )}
     </Form>
   );
