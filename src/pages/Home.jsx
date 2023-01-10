@@ -16,7 +16,7 @@ const Home = () => {
   useEffect(()=>{
 
     const fetchUser=async()=>{
-      const response=await axios.get("https://skeletal-mandarin-34yjduy33tzcs9memle5kbm7.herokudns.com/auth/login/success",{withCredentials:true});
+      const response=await axios.get("https://webportal1.herokuapp.com/auth/login/success",{withCredentials:true});
       return response.data;
     }
     fetchUser().then(data=>{

@@ -120,7 +120,7 @@ const NavBar = () => {
 
   const logoutHandler = async () => {
     const response = await axios.get(
-      `https://skeletal-mandarin-34yjduy33tzcs9memle5kbm7.herokudns.com/${
+      `https://webportal1.herokuapp.com/${
         currentUser.withSocials ? "auth/logout" : "api/v1/auth/logout"
       }`,
       { withCredentials: true }
