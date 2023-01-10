@@ -26,7 +26,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 i18next.use(initReactI18next).use(LanguageDetector).use(HttpApi).init({
     detection:{
-      order:[ 'cookie', 'localStorage', 'htmlTag', 'path', 'subdomain'],
+      order:[ 'cookie', 'localStorage', 'htmlTag', 'path'],
       caches:['cookie']
     },
     backend:{
