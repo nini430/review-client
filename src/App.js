@@ -133,7 +133,7 @@ function App() {
     if (currentUser) {
       dispatch(
         getSocket(
-          io("ws://localhost:8000", { query: { id: currentUser.uuid } })
+          io("https://famous-malabi-70c46b.netlify.app", { query: { id: currentUser.uuid } })
         )
       );
     }
